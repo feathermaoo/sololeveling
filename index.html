@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -8,8 +9,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="獨自升級">
 
-    <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='180' height='180'><rect width='32' height='32' fill='%23dfead6'/><rect x='14' y='6' width='4' height='18' fill='%239b6b43'/><rect x='10' y='8' width='4' height='4' fill='%23d99022'/><rect x='18' y='10' width='4' height='4' fill='%23d99022'/><rect x='10' y='14' width='4' height='4' fill='%23d99022'/><rect x='18' y='16' width='4' height='4' fill='%23d99022'/><rect x='12' y='20' width='8' height='4' fill='%2331b66b'/></svg>">
-
+    <link rel="apple-touch-icon" href="icon-180.png">
+    <link rel="icon" type="image/png" href="icon-180.png">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap" rel="stylesheet">
 
     <title>我獨自升級：鄉村經營篇</title>
@@ -22,7 +23,6 @@
             --primary-color: #4f8dd3;
             --xp-color: #31b66b;
             --gold-color: #d99022;
-            --accent-color: #d95f43;
             --soil-color: #9b6b43;
         }
 
@@ -38,7 +38,7 @@
                 linear-gradient(180deg, #cfe6f3 0%, var(--bg-color) 42%, #d7c6a4 100%);
             color: var(--border-color);
             margin: 0;
-            padding: 82px 10px 20px 10px;
+            padding: 82px 10px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -50,27 +50,18 @@
             font-size: 1.45rem;
             margin: 10px 0;
             text-align: center;
-            text-shadow: 2px 2px 0px #fff;
+            text-shadow: 2px 2px 0 #fff;
             line-height: 1.3;
         }
 
         h2, h3 {
             font-size: 1.05rem;
-            margin: 5px 0 10px 0;
-            text-shadow: 1px 1px 0px #fff;
+            margin: 5px 0 10px;
+            text-shadow: 1px 1px 0 #fff;
             display: flex;
             align-items: center;
             gap: 5px;
             line-height: 1.35;
-        }
-
-        .clickable-title {
-            cursor: pointer;
-            position: relative;
-        }
-
-        .clickable-title:active {
-            opacity: 0.7;
         }
 
         .game-container {
@@ -85,8 +76,7 @@
             background-color: var(--panel-color);
             border: 4px solid var(--border-color);
             padding: 12px;
-            box-shadow: 4px 4px 0px var(--border-color);
-            image-rendering: pixelated;
+            box-shadow: 4px 4px 0 var(--border-color);
             border-radius: 8px;
             width: 100%;
         }
@@ -105,7 +95,7 @@
             background: #efe0bf;
             padding: 10px 14px;
             min-height: 44px;
-            box-shadow: 0px 3px 0px var(--border-color);
+            box-shadow: 0 3px 0 var(--border-color);
         }
 
         .status-level {
@@ -142,7 +132,6 @@
             width: 74px;
             height: 12px;
             display: inline-block;
-            position: relative;
             flex: 0 0 auto;
         }
 
@@ -174,7 +163,10 @@
             display: inline-block;
             width: 100%;
             text-align: center;
-            margin-bottom: 2px;
+        }
+
+        .clickable-title {
+            cursor: pointer;
         }
 
         .farm-canvas {
@@ -243,13 +235,13 @@
             box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
         }
 
-        input, button, select {
+        input, button {
             font-family: "微軟正黑體", sans-serif;
             font-weight: bold;
             padding: 10px;
             border: 2px solid var(--border-color);
             background: #fff;
-            box-shadow: 2px 2px 0px var(--border-color);
+            box-shadow: 2px 2px 0 var(--border-color);
             outline: none;
             border-radius: 4px;
         }
@@ -260,14 +252,19 @@
         }
 
         button:active {
-            box-shadow: 0px 0px 0px var(--border-color);
+            box-shadow: none;
             transform: translate(2px, 2px);
         }
 
-        .shop-toggle {
+        .shop-toggle,
+        .history-button {
             width: 100%;
             margin-top: 8px;
             background: #ffd166;
+        }
+
+        .history-button {
+            background: #9ad0c2;
         }
 
         .shop-panel {
@@ -290,14 +287,13 @@
             padding: 6px;
             font-size: 11px;
             text-align: center;
-            font-weight: bold;
             line-height: 1.25;
         }
 
         ul {
             list-style: none;
             padding: 0;
-            margin: 5px 0 0 0;
+            margin: 5px 0 0;
         }
 
         li {
@@ -327,7 +323,7 @@
         .backup-section {
             background: #e3d5ca;
             border: 4px solid var(--border-color);
-            box-shadow: 4px 4px 0px var(--border-color);
+            box-shadow: 4px 4px 0 var(--border-color);
             border-radius: 8px;
             padding: 12px;
             margin-top: 5px;
@@ -347,7 +343,7 @@
             font-size: 13px;
             width: 80%;
             max-width: 300px;
-            animation: popToast 2.0s ease forwards;
+            animation: popToast 2s ease forwards;
         }
 
         @keyframes popToast {
@@ -355,6 +351,45 @@
             15% { opacity: 1; transform: translate(-50%, 0) scale(1); }
             80% { opacity: 1; transform: translate(-50%, 0) scale(1); }
             100% { opacity: 0; transform: translate(-50%, -10px) scale(.95); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(0, 0, 0, .45);
+            padding: 70px 12px 20px;
+        }
+
+        .modal.open {
+            display: block;
+        }
+
+        .modal-box {
+            background: var(--panel-color);
+            border: 4px solid var(--border-color);
+            box-shadow: 4px 4px 0 var(--border-color);
+            border-radius: 8px;
+            max-width: 500px;
+            margin: 0 auto;
+            max-height: 80vh;
+            overflow: auto;
+            padding: 12px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .rank-count {
+            color: var(--gold-color);
+            font-weight: bold;
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -396,6 +431,8 @@
             </div>
             <ul id="list-goods"></ul>
 
+            <button class="history-button" onclick="openHistoryModal()">🏆 查看歷史排行</button>
+
             <hr style="border: 1px dashed var(--border-color); margin: 15px 0;">
 
             <h3>⚔️ 24小時執行任務</h3>
@@ -417,7 +454,7 @@
         </div>
 
         <div class="backup-section">
-            <p style="font-size: 11px; font-weight: bold; margin: 0 0 8px 0; text-align: center;">☁️ 雲端時光機（免登入帳號備份）</p>
+            <p style="font-size: 11px; font-weight: bold; margin: 0 0 8px; text-align: center;">☁️ 雲端時光機（免登入帳號備份）</p>
             <div style="display: flex; gap: 8px;">
                 <button onclick="cloudBackup()" style="flex: 1; font-size: 11px; background: #81b29a; color: white; border-color: #2b4c3f;">💾 雲端備份</button>
                 <button onclick="cloudRestore()" style="flex: 1; font-size: 11px; background: #e07a5f; color: white; border-color: #5c2c20;">⏳ 輸入代碼還原</button>
@@ -425,15 +462,28 @@
         </div>
     </div>
 
+    <div id="history-modal" class="modal" onclick="closeHistoryModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <strong>🏆 歷史排行</strong>
+                <button onclick="closeHistoryModal()" style="padding:6px 10px;">✕</button>
+            </div>
+            <div id="history-content"></div>
+        </div>
+    </div>
+
     <script>
         let gameState = {
             villageName: "我的自由小農舍",
+            lastActiveDate: "",
             level: 1,
             xp: 0,
             gold: 0,
             inventory: [],
             tasks: [],
-            books: []
+            books: [],
+            goodDeeds: [],
+            completedTasks: []
         };
 
         const rewards = {
@@ -491,6 +541,31 @@
             crystal: ["水晶閃著稀有光芒。"],
             trophy: ["這是你的努力證明。"]
         };
+
+        function getTodayKey() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getTimeLabel() {
+            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function runDailyRefresh() {
+            const today = getTodayKey();
+
+            if (!gameState.lastActiveDate) {
+                gameState.lastActiveDate = today;
+                return;
+            }
+
+            if (gameState.lastActiveDate !== today) {
+                gameState.lastActiveDate = today;
+            }
+        }
 
         function getRequiredXp(level) {
             if (level === 1) return 20;
@@ -578,7 +653,7 @@
                 localStorage.setItem('solo_leveling_farm', JSON.stringify(gameState));
 
                 document.querySelectorAll('.pixel-sprite').forEach(el => el.remove());
-                gameState.inventory = (gameState.inventory || []).map(normalizeInventoryItem);
+                prepareGameState();
                 gameState.inventory.forEach(item => spawnSprite(item));
 
                 saveAndRender();
@@ -607,14 +682,14 @@
             const input = document.getElementById('input-good');
             if (!input.value.trim()) return;
 
-            const mult = getRewardMultiplier();
-            const estimatedXp = Math.round(rewards.goodDeed * mult);
-            const estimatedGold = calculateGoldFromXp(estimatedXp);
+            const text = input.value.trim();
 
-            const ul = document.getElementById('list-goods');
-            const li = document.createElement('li');
-            li.innerHTML = `<span>✨ ${input.value}</span><small class="reward-line">+${estimatedXp} XP / +${estimatedGold} 🪙</small>`;
-            ul.insertBefore(li, ul.firstChild);
+            gameState.goodDeeds.push({
+                id: Date.now(),
+                text,
+                date: getTodayKey(),
+                time: getTimeLabel()
+            });
 
             input.value = '';
             gainRewards(rewards.goodDeed, '自我讚美完成');
@@ -626,9 +701,9 @@
 
             gameState.tasks.push({
                 id: Date.now(),
-                text: input.value,
-                createdTime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                done: false
+                text: input.value.trim(),
+                createdDate: getTodayKey(),
+                createdTime: getTimeLabel()
             });
 
             input.value = '';
@@ -636,6 +711,16 @@
         }
 
         function completeTask(id) {
+            const task = gameState.tasks.find(t => t.id === id);
+            if (!task) return;
+
+            gameState.completedTasks.push({
+                id: Date.now(),
+                text: task.text,
+                date: getTodayKey(),
+                time: getTimeLabel()
+            });
+
             gameState.tasks = gameState.tasks.filter(t => t.id !== id);
             gainRewards(rewards.completeTask, '任務回報完成');
         }
@@ -802,7 +887,61 @@
             setTimeout(() => bubble.style.display = 'none', 2000);
         }
 
+        function getTopItems(records, limit = 10) {
+            const counts = {};
+
+            records.forEach(record => {
+                const key = record.text.trim();
+                if (!key) return;
+                counts[key] = (counts[key] || 0) + 1;
+            });
+
+            return Object.entries(counts)
+                .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-Hant'))
+                .slice(0, limit);
+        }
+
+        function openHistoryModal() {
+            const topGoods = getTopItems(gameState.goodDeeds || []);
+            const topTasks = getTopItems(gameState.completedTasks || []);
+
+            document.getElementById('history-content').innerHTML = `
+                <h3>✨ 正向回饋排行</h3>
+                ${renderTopList(topGoods, "還沒有正向回饋紀錄")}
+
+                <h3>⚔️ 已完成任務排行</h3>
+                ${renderTopList(topTasks, "還沒有完成任務紀錄")}
+            `;
+
+            document.getElementById('history-modal').classList.add('open');
+        }
+
+        function closeHistoryModal(event) {
+            if (event && event.target.id !== 'history-modal') return;
+            document.getElementById('history-modal').classList.remove('open');
+        }
+
+        function renderTopList(items, emptyText) {
+            if (!items.length) {
+                return `<p style="font-size:12px;">${emptyText}</p>`;
+            }
+
+            return `
+                <ul>
+                    ${items.map(([text, count], index) => `
+                        <li>
+                            <div class="task-header">
+                                <strong>${index + 1}. ${text}</strong>
+                                <span class="rank-count">${count} 次</span>
+                            </div>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+        }
+
         function saveAndRender() {
+            runDailyRefresh();
             localStorage.setItem('solo_leveling_farm', JSON.stringify(gameState));
 
             const nextXp = getRequiredXp(gameState.level);
@@ -815,15 +954,38 @@
             document.getElementById('lbl-gold').innerText = gameState.gold;
             document.getElementById('xp-bar').style.width = `${percent}%`;
 
+            document.getElementById('weekend-alert').innerHTML = getRewardMultiplier() > 1
+                ? `<div class="weekend-badge">📅 週末 Buff：XP 1.5 倍，金幣為 XP 的 60%</div>`
+                : '';
+
+            renderTodayGoodDeeds();
+            renderTasks();
+            renderBooks();
+        }
+
+        function renderTodayGoodDeeds() {
+            const goodList = document.getElementById('list-goods');
+            const today = getTodayKey();
+            const todayGoods = (gameState.goodDeeds || []).filter(item => item.date === today);
+
+            goodList.innerHTML = '';
+
+            todayGoods.slice().reverse().forEach(item => {
+                goodList.innerHTML += `
+                    <li>
+                        <span>✨ ${item.text}</span>
+                        <small class="reward-line">${item.time}</small>
+                    </li>
+                `;
+            });
+        }
+
+        function renderTasks() {
+            const taskList = document.getElementById('list-tasks');
             const mult = getRewardMultiplier();
             const taskXp = Math.round(rewards.completeTask * mult);
             const taskGold = calculateGoldFromXp(taskXp);
 
-            document.getElementById('weekend-alert').innerHTML = mult > 1
-                ? `<div class="weekend-badge">📅 週末 Buff：XP 1.5 倍，金幣為 XP 的 60%</div>`
-                : '';
-
-            const taskList = document.getElementById('list-tasks');
             taskList.innerHTML = '';
 
             gameState.tasks.forEach(t => {
@@ -839,7 +1001,9 @@
                     </li>
                 `;
             });
+        }
 
+        function renderBooks() {
             const bookSection = document.getElementById('book-section');
             bookSection.innerHTML = '';
 
@@ -852,7 +1016,7 @@
                             <span>📖 ${b.name}</span>
                             <span>${p}%</span>
                         </div>
-                        <div class="bar-container" style="width:100%; height:12px; margin:6px 0 10px 0;">
+                        <div class="bar-container" style="width:100%; height:12px; margin:6px 0 10px;">
                             <div class="bar-fill" style="width:${p}%; background:var(--primary-color);"></div>
                         </div>
                         <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px;">
@@ -867,6 +1031,17 @@
             });
         }
 
+        function prepareGameState() {
+            gameState.villageName = gameState.villageName || "我的自由小農舍";
+            gameState.lastActiveDate = gameState.lastActiveDate || getTodayKey();
+            gameState.inventory = (gameState.inventory || []).map(normalizeInventoryItem);
+            gameState.tasks = gameState.tasks || [];
+            gameState.books = gameState.books || [];
+            gameState.goodDeeds = gameState.goodDeeds || [];
+            gameState.completedTasks = gameState.completedTasks || [];
+            runDailyRefresh();
+        }
+
         window.onload = function() {
             renderShop();
 
@@ -874,13 +1049,10 @@
 
             if (saved) {
                 gameState = JSON.parse(saved);
-                gameState.villageName = gameState.villageName || "我的自由小農舍";
-                gameState.inventory = (gameState.inventory || []).map(normalizeInventoryItem);
-                gameState.tasks = gameState.tasks || [];
-                gameState.books = gameState.books || [];
-                gameState.inventory.forEach(item => spawnSprite(item));
             }
 
+            prepareGameState();
+            gameState.inventory.forEach(item => spawnSprite(item));
             saveAndRender();
         };
     </script>
