@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>我獨自升級：鄉村經營篇</title>
-    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="獨自升級">
-    
+
     <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='180' height='180'><rect width='32' height='32' fill='%23dfead6'/><rect x='14' y='6' width='4' height='18' fill='%239b6b43'/><rect x='10' y='8' width='4' height='4' fill='%23d99022'/><rect x='18' y='10' width='4' height='4' fill='%23d99022'/><rect x='10' y='14' width='4' height='4' fill='%23d99022'/><rect x='18' y='16' width='4' height='4' fill='%23d99022'/><rect x='12' y='20' width='8' height='4' fill='%2331b66b'/></svg>">
 
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --bg-color: #dfead6;
@@ -37,7 +32,7 @@
                 linear-gradient(180deg, #cfe6f3 0%, var(--bg-color) 42%, #d7c6a4 100%);
             color: var(--border-color);
             margin: 0;
-            padding: 85px 10px 20px 10px; /* 稍微加大頂部內距，留位置給修正後的狀態欄 */
+            padding: 65px 10px 20px 10px; /* 縮小頂部內距，配合壓低後的狀態欄 */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -62,6 +57,15 @@
             line-height: 1.35;
         }
 
+        /* 讓農舍標題具備點擊提示感 */
+        .clickable-title {
+            cursor: pointer;
+            position: relative;
+        }
+        .clickable-title:active {
+            opacity: 0.7;
+        }
+
         .game-container {
             display: flex;
             flex-direction: column;
@@ -80,7 +84,7 @@
             width: 100%;
         }
 
-        /* 👑 修正重點：重新設計狀態欄，確保在手機上絕對不會被壓扁 👑 */
+        /* 👑 修正：完全扁平化、同一水平線的狀態欄 👑 */
         .status-bar {
             position: fixed;
             top: 0;
@@ -93,23 +97,22 @@
             justify-content: space-between;
             align-items: center;
             background: #efe0bf;
-            padding: 12px 14px; /* 加大上下內距確保高度 */
-            min-height: 60px; /* 強制設定最低高度 */
-            box-shadow: 0px 4px 0px var(--border-color);
+            padding: 10px 14px;
+            height: 44px; /* 壓低高度，剛好裝下一行 */
+            box-shadow: 0px 3px 0px var(--border-color);
         }
 
         .status-level {
             display: flex;
-            flex-direction: column; /* 讓 LV 和 XP 分行顯示，避免擠在一起 */
-            align-items: flex-start;
+            align-items: center; /* 水平置中對齊 */
+            gap: 6px;
             font-family: 'Press Start 2P', cursive;
-            font-size: 0.75rem;
-            line-height: 1.2;
+            font-size: 0.68rem;
         }
 
         .status-gold {
             font-family: 'Press Start 2P', cursive;
-            font-size: 0.85rem; /* 稍微放大金幣顯示 */
+            font-size: 0.75rem;
             color: var(--gold-color);
             text-shadow: 1px 1px 0 #fff;
             display: flex;
@@ -117,22 +120,19 @@
         }
 
         .xp-text {
-            display: block;
             font-family: "微軟正黑體", sans-serif;
             font-size: 11px;
             font-weight: bold;
-            margin-top: 4px;
-            color: #555;
+            color: #4a3728;
+            margin-left: 4px;
         }
 
         .bar-container {
             background: #fff;
             border: 2px solid var(--border-color);
-            width: 120px;
-            height: 14px;
+            width: 80px; /* 稍微縮短進度條以適應同一行 */
+            height: 12px;
             display: inline-block;
-            vertical-align: middle;
-            margin-top: 3px;
             position: relative;
         }
 
@@ -229,25 +229,6 @@
             transform: translate(2px, 2px);
         }
 
-        .village-sign {
-            background: #b58259;
-            color: #fff;
-            padding: 6px 12px;
-            border: 3px solid #3d2d22;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 2px 2px 0px #3d2d22;
-            margin: 5px auto 12px auto;
-            max-width: 260px;
-            cursor: pointer;
-        }
-        .village-sign:active {
-            transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0px #3d2d22;
-        }
-
         .shop-toggle {
             width: 100%;
             margin-top: 8px;
@@ -278,11 +259,14 @@
             line-height: 1.25;
         }
 
+        /* 👑 移到最底部的雲端面板樣式 👑 */
         .backup-section {
             background: #e3d5ca;
-            border-top: 2px dashed var(--border-color);
-            margin-top: 15px;
-            padding-top: 12px;
+            border: 4px solid var(--border-color);
+            box-shadow: 4px 4px 0px var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 5px;
         }
 
         ul {
@@ -359,9 +343,9 @@
         
         <div class="pixel-box status-bar">
             <div class="status-level">
-                LV<span id="lbl-level">1</span>
+                <span>LV<span id="lbl-level">1</span></span>
                 <div class="bar-container"><div id="xp-bar" class="bar-fill" style="background: var(--xp-color);"></div></div>
-                <span class="xp-text"><span id="lbl-xp">0</span>/<span id="lbl-next-xp">20</span> XP</span>
+                <span class="xp-text"><span id="lbl-xp">0</span>/<span id="lbl-next-xp">20</span></span>
             </div>
             <div class="status-gold">
                 🪙<span id="lbl-gold">0</span>
@@ -370,14 +354,10 @@
 
         <h1>🌾 我獨自升級 🧑‍🌾</h1>
         
-        <div class="village-sign" onclick="renameVillage()">
-            🪧 村莊：<span id="lbl-village-name">我的像素小農舍</span> ✏️
-        </div>
-
         <div id="weekend-alert" style="position: fixed; top: 46px; left: 0; right: 0; z-index: 99; width: 100%; max-width: 500px; margin: 0 auto; padding: 0 10px;"></div>
 
         <div class="pixel-box">
-            <h2>🏡 我的自由小農舍</h2>
+            <h2 class="clickable-title" onclick="renameVillage()">🏡 <span id="lbl-village-name">我的自由小農舍</span> ✏️</h2>
             <div class="farm-canvas" id="farm">
                 <div id="bubble" class="speech-bubble"></div>
             </div>
@@ -387,14 +367,6 @@
             <div id="shop-panel" class="shop-panel">
                 <h2>🏪 像素雜貨店</h2>
                 <div class="shop-grid" id="shop-grid"></div>
-            </div>
-
-            <div class="backup-section">
-                <p style="font-size: 11px; font-weight: bold; margin: 0 0 8px 0; text-align: center;">☁️ 雲端時光機（免登入帳號備份）</p>
-                <div style="display: flex; gap: 5px;">
-                    <button onclick="cloudBackup()" style="flex: 1; font-size: 11px; background: #81b29a; color: white;">💾 雲端備份</button>
-                    <button onclick="cloudRestore()" style="flex: 1; font-size: 11px; background: #e07a5f; color: white;">⏳ 輸入代碼還原</button>
-                </div>
             </div>
         </div>
 
@@ -425,11 +397,20 @@
             <button onclick="createBook()" style="width: 100%; margin-bottom: 8px;">📖 開始讀新書</button>
             <div id="book-section"></div>
         </div>
+
+        <div class="backup-section">
+            <p style="font-size: 11px; font-weight: bold; margin: 0 0 8px 0; text-align: center; color: var(--border-color);">☁️ 雲端時光機（免登入帳號備份）</p>
+            <div style="display: flex; gap: 8px;">
+                <button onclick="cloudBackup()" style="flex: 1; font-size: 11px; background: #81b29a; color: white; border-color: #2b4c3f;">💾 雲端備份</button>
+                <button onclick="cloudRestore()" style="flex: 1; font-size: 11px; background: #e07a5f; color: white; border-color: #5c2c20;">⏳ 輸入代碼還原</button>
+            </div>
+        </div>
+
     </div>
 
     <script>
         let gameState = {
-            villageName: "我的像素小農舍",
+            villageName: "我的自由小農舍",
             level: 1,
             xp: 0,
             gold: 0,
@@ -520,7 +501,7 @@
         }
 
         function renameVillage() {
-            const newName = prompt("請輸入新的村庄名稱：", gameState.villageName);
+            const newName = prompt("請輸入新的農舍名稱：", gameState.villageName);
             if (newName && newName.trim()) {
                 gameState.villageName = newName.trim();
                 saveAndRender();
@@ -539,7 +520,7 @@
 
             const cloudData = localStorage.getItem(`cloud_backup_${code.trim()}`);
             if (cloudData) {
-                if (confirm("檢測到備份存檔！是否覆蓋目前進度還原？（目前農舍物件會被重置擺放）")) {
+                if (confirm("檢測到備份存檔！是否覆蓋目前進度還原？")) {
                     gameState = JSON.parse(cloudData);
                     localStorage.setItem('solo_leveling_farm', JSON.stringify(gameState));
                     
@@ -796,7 +777,9 @@
             const nextXp = getRequiredXp(gameState.level);
             const percent = Math.min(100, (gameState.xp / nextXp) * 100);
 
-            document.getElementById('lbl-village-name').innerText = gameState.villageName || "我的像素小農舍";
+            // 更新自訂的農舍標題名稱
+            document.getElementById('lbl-village-name').innerText = gameState.villageName || "我的自由小農舍";
+            
             document.getElementById('lbl-level').innerText = gameState.level;
             document.getElementById('lbl-xp').innerText = gameState.xp;
             document.getElementById('lbl-next-xp').innerText = nextXp;
@@ -807,8 +790,9 @@
             const taskXp = Math.round(rewards.completeTask * mult);
             const taskGold = calculateGoldFromXp(taskXp);
 
+            // 調整週末加成提示的絕對位置，與新扁平化狀態欄貼合
             document.getElementById('weekend-alert').innerHTML = mult > 1
-                ? `<div class="weekend-badge">📅 週末 Buff 啟動：XP 1.5 倍（金幣同步按 60% 加成）</div>`
+                ? `<div class="weekend-badge">📅 週末 Buff：XP 1.5倍加成中！</div>`
                 : '';
 
             const taskList = document.getElementById('list-tasks');
@@ -860,7 +844,7 @@
             const saved = localStorage.getItem('solo_leveling_farm');
             if (saved) {
                 gameState = JSON.parse(saved);
-                gameState.villageName = gameState.villageName || "我的像素小農舍";
+                gameState.villageName = gameState.villageName || "我的自由小農舍";
                 gameState.inventory = (gameState.inventory || []).map(normalizeInventoryItem);
                 gameState.tasks = gameState.tasks || [];
                 gameState.books = gameState.books || [];
