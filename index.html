@@ -6,7 +6,6 @@
     <title>我獨自升級：鄉村經營篇</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap" rel="stylesheet">
     <style>
-        /* 像素與鄉村風配色風格 */
         :root {
             --bg-color: #dfead6;
             --panel-color: #fff8e7;
@@ -30,7 +29,7 @@
                 linear-gradient(180deg, #cfe6f3 0%, var(--bg-color) 42%, #d7c6a4 100%);
             color: var(--border-color);
             margin: 0;
-            padding: 70px 10px 20px 10px; /* 留空間給頂部固定狀態欄 */
+            padding: 72px 10px 20px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -38,31 +37,31 @@
         }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             margin: 10px 0;
             text-align: center;
             text-shadow: 2px 2px 0px #fff;
+            line-height: 1.3;
         }
 
         h2, h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin: 5px 0 10px 0;
             text-shadow: 1px 1px 0px #fff;
             display: flex;
             align-items: center;
             gap: 5px;
+            line-height: 1.35;
         }
 
-        /* 手機版主要容器：單欄流動佈局 */
         .game-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 14px;
             width: 100%;
-            max-width: 500px; /* 鎖定手機黃金寬度 */
+            max-width: 500px;
         }
 
-        /* 像素風區塊外框 */
         .pixel-box {
             background-color: var(--panel-color);
             border: 4px solid var(--border-color);
@@ -73,7 +72,6 @@
             width: 100%;
         }
 
-        /* 頂部固定狀態欄（手機RPG手遊感） */
         .status-bar {
             position: fixed;
             top: 0;
@@ -90,16 +88,23 @@
             box-shadow: 0px 4px 0px var(--border-color);
         }
 
-        .status-level {
+        .status-level,
+        .status-gold {
             font-family: 'Press Start 2P', cursive;
-            font-size: 0.75rem;
+            font-size: 0.68rem;
         }
 
         .status-gold {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.75rem;
             color: var(--gold-color);
             text-shadow: 1px 1px 0 #fff;
+        }
+
+        .xp-text {
+            display: block;
+            font-family: "微軟正黑體", sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            margin-top: 3px;
         }
 
         .bar-container {
@@ -119,9 +124,8 @@
             transition: width 0.3s;
         }
 
-        /* 調整手機版畫布高度，確保單手好操作 */
         .farm-canvas {
-            height: 260px;
+            height: 390px;
             background:
                 linear-gradient(rgba(255,255,255,.22) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255,255,255,.22) 1px, transparent 1px),
@@ -132,20 +136,20 @@
             overflow: hidden;
             margin-bottom: 10px;
             box-shadow: inset 0 0 0 4px rgba(255,255,255,.22);
-            touch-action: none; /* 防止手機拖曳時畫面網頁跟著滾動 */
+            touch-action: none;
         }
 
         .farm-canvas::before {
             content: "";
             position: absolute;
             inset: auto 0 0 0;
-            height: 60px;
+            height: 78px;
             background: repeating-linear-gradient(90deg, var(--soil-color), var(--soil-color) 20px, #855936 20px, #855936 40px);
             opacity: .88;
         }
 
         .farm-canvas::after {
-            content: "📱 自由拖曳物件擺放";
+            content: "📱 自由拖曳擺放";
             position: absolute;
             right: 8px;
             top: 8px;
@@ -167,6 +171,11 @@
             filter: drop-shadow(2px 3px 0 rgba(61,45,34,.25));
         }
 
+        .pixel-sprite.dragging {
+            transform: scale(1.15);
+            z-index: 20;
+        }
+
         .speech-bubble {
             position: absolute;
             background: white;
@@ -181,22 +190,6 @@
             box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
         }
 
-        /* 商店改為更適合大拇指點擊的按鈕 */
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .shop-grid button {
-            min-height: 50px;
-            padding: 6px;
-            font-size: 11px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        /* 輸入框與按鈕全像素風外觀修正 */
         input, button, select {
             font-family: "微軟正黑體", sans-serif;
             font-weight: bold;
@@ -208,17 +201,46 @@
             border-radius: 4px;
         }
 
-        button:active {
-            box-shadow: 0px 0px 0px var(--border-color);
-            transform: translate(2px, 2px);
-        }
-
         button {
             background: #ffbe76;
             cursor: pointer;
         }
 
-        /* 列表優化 */
+        button:active {
+            box-shadow: 0px 0px 0px var(--border-color);
+            transform: translate(2px, 2px);
+        }
+
+        .shop-toggle {
+            width: 100%;
+            margin-top: 8px;
+            background: #ffd166;
+        }
+
+        .shop-panel {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .shop-panel.open {
+            display: block;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .shop-grid button {
+            min-height: 52px;
+            padding: 6px;
+            font-size: 11px;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.25;
+        }
+
         ul {
             list-style: none;
             padding: 0;
@@ -252,7 +274,7 @@
         .weekend-badge {
             background: #ff4757;
             color: white;
-            padding: 4px 8px;
+            padding: 5px 8px;
             font-size: 11px;
             font-weight: bold;
             border: 2px solid var(--border-color);
@@ -260,9 +282,9 @@
             display: inline-block;
             width: 100%;
             text-align: center;
+            margin-bottom: 2px;
         }
 
-        /* Toast 調整到手機中央偏上方更明顯 */
         .reward-toast {
             position: fixed;
             left: 50%;
@@ -272,7 +294,7 @@
             border: 3px solid var(--border-color);
             padding: 10px 16px;
             box-shadow: 4px 4px 0 var(--border-color);
-            z-index: 100;
+            z-index: 200;
             text-align: center;
             font-size: 13px;
             width: 80%;
@@ -289,20 +311,19 @@
     </style>
 </head>
 <body>
-
     <div class="game-container">
-        
         <div class="pixel-box status-bar">
             <div class="status-level">
                 LV<span id="lbl-level">1</span>
                 <div class="bar-container"><div id="xp-bar" class="bar-fill" style="background: var(--xp-color);"></div></div>
+                <span class="xp-text"><span id="lbl-xp">0</span>/<span id="lbl-next-xp">20</span> XP</span>
             </div>
             <div class="status-gold">
                 🪙<span id="lbl-gold">0</span>
             </div>
         </div>
 
-        <h1 style="margin-top: 10px;">🌾 我獨自升級 🧑‍🌾</h1>
+        <h1>🌾 我獨自升級 🧑‍🌾</h1>
         <div id="weekend-alert"></div>
 
         <div class="pixel-box">
@@ -311,21 +332,16 @@
                 <div id="bubble" class="speech-bubble"></div>
             </div>
 
-            <h2>🏪 像素雜貨店</h2>
-            <div class="shop-grid">
-                <button onclick="buyItem('dog', 150)">🐕 柴犬 (150)<br><small>每日打氣</small></button>
-                <button onclick="buyItem('cat', 120)">🐈 貓咪 (120)<br><small>療癒巡邏</small></button>
-                <button onclick="buyItem('tree', 80)">🌳 果樹 (80)<br><small>果園感</small></button>
-                <button onclick="buyItem('radio', 100)">📻 收音機 (100)<br><small>Lo-Fi 氣氛</small></button>
-                <button onclick="buyItem('flower', 45)">🌻 向日葵 (45)<br><small>點亮角落</small></button>
-                <button onclick="buyItem('bench', 70)">🪑 長椅 (70)<br><small>休息點</small></button>
-                <button onclick="buyItem('pond', 110)">💧 小池塘 (110)<br><small>清爽感</small></button>
-                <button onclick="buyItem('chest', 160)">🎁 寶箱 (160)<br><small>戰利品</small></button>
+            <button class="shop-toggle" onclick="toggleShop()">🏪 打開像素雜貨店</button>
+
+            <div id="shop-panel" class="shop-panel">
+                <h2>🏪 像素雜貨店</h2>
+                <div class="shop-grid" id="shop-grid"></div>
             </div>
         </div>
 
         <div class="pixel-box">
-            <h3>✨ 每日正向回饋 (自我讚美)</h3>
+            <h3>✨ 每日正向回饋</h3>
             <div style="display:flex; gap:5px;">
                 <input type="text" id="input-good" placeholder="今天做得好的事..." style="flex:1; font-size:13px;">
                 <button onclick="addGoodDeed()" style="white-space: nowrap;">記錄</button>
@@ -334,7 +350,7 @@
 
             <hr style="border: 1px dashed var(--border-color); margin: 15px 0;">
 
-            <h3>⚔️ 24小時執行任務清單</h3>
+            <h3>⚔️ 24小時執行任務</h3>
             <div style="display:flex; gap:5px; margin-bottom:5px;">
                 <input type="text" id="input-task" placeholder="準備執行的任務..." style="flex:1; font-size:13px;">
                 <button onclick="addTask()" style="white-space: nowrap;">發布</button>
@@ -351,7 +367,6 @@
             <button onclick="createBook()" style="width: 100%; margin-bottom: 8px;">📖 開始讀新書</button>
             <div id="book-section"></div>
         </div>
-
     </div>
 
     <script>
@@ -364,11 +379,67 @@
             books: []
         };
 
+        const rewards = {
+            goodDeed: 12,
+            publishTask: 5,
+            completeTask: 30,
+            bookPercent: 5,
+            finishBook: 120
+        };
+
+        const shopItems = [
+            { type: 'dog', emoji: '🐕', name: '柴犬', cost: 90, note: '每日打氣' },
+            { type: 'cat', emoji: '🐈', name: '貓咪', cost: 75, note: '療癒巡邏' },
+            { type: 'tree', emoji: '🌳', name: '果樹', cost: 45, note: '果園感' },
+            { type: 'radio', emoji: '📻', name: '收音機', cost: 60, note: 'Lo-Fi 氣氛' },
+            { type: 'flower', emoji: '🌻', name: '向日葵', cost: 25, note: '點亮角落' },
+            { type: 'bench', emoji: '🪑', name: '長椅', cost: 35, note: '休息點' },
+            { type: 'pond', emoji: '💧', name: '小池塘', cost: 70, note: '清爽感' },
+            { type: 'chest', emoji: '🎁', name: '寶箱', cost: 95, note: '戰利品' },
+            { type: 'house', emoji: '🏠', name: '小木屋', cost: 120, note: '基地核心' },
+            { type: 'fence', emoji: '🪵', name: '木柵欄', cost: 20, note: '區域分隔' },
+            { type: 'lamp', emoji: '🏮', name: '燈籠', cost: 40, note: '夜晚氣氛' },
+            { type: 'mushroom', emoji: '🍄', name: '蘑菇', cost: 18, note: '森林感' },
+            { type: 'carrot', emoji: '🥕', name: '胡蘿蔔田', cost: 30, note: '農作物' },
+            { type: 'corn', emoji: '🌽', name: '玉米田', cost: 32, note: '收成感' },
+            { type: 'scarecrow', emoji: '🧍', name: '稻草人', cost: 55, note: '守護農場' },
+            { type: 'well', emoji: '🪣', name: '水井', cost: 65, note: '生活感' },
+            { type: 'campfire', emoji: '🔥', name: '營火', cost: 50, note: '暖暖的' },
+            { type: 'rock', emoji: '🪨', name: '石頭', cost: 12, note: '自然裝飾' },
+            { type: 'crystal', emoji: '💎', name: '水晶', cost: 100, note: '稀有收藏' },
+            { type: 'trophy', emoji: '🏆', name: '獎盃', cost: 130, note: '努力證明' }
+        ];
+
+        const spriteMap = Object.fromEntries(shopItems.map(item => [item.type, item.emoji]));
+
+        const spriteQuotes = {
+            dog: ["羽毛今天超棒！", "主人，一起升級！", "汪！任務完成的味道！"],
+            cat: ["喵~ 你很努力了。", "貓咪批准今天的進度。"],
+            radio: ["🎵 正在播放：像素鄉村 Lo-Fi... 🎵", "專注時間，音量剛剛好。"],
+            tree: ["🍎 果樹正在茁壯成長！", "明天也會結出一點成果。"],
+            flower: ["向日葵把這裡照亮了。", "小小的美感也是獎勵。"],
+            bench: ["坐一下，恢復行動力。", "這裡很適合整理思緒。"],
+            pond: ["水面很安靜，腦袋也清爽了。"],
+            chest: ["寶箱收藏著你的戰利品。"],
+            house: ["這是你的升級基地。"],
+            fence: ["界線清楚，心也比較穩。"],
+            lamp: ["燈亮著，今天還能前進一點。"],
+            mushroom: ["角落多了一點森林氣息。"],
+            carrot: ["胡蘿蔔田準備收成。"],
+            corn: ["玉米長得很精神。"],
+            scarecrow: ["稻草人守著你的努力。"],
+            well: ["水井讓農舍更完整了。"],
+            campfire: ["火光很暖，休息一下也很好。"],
+            rock: ["石頭讓農場更自然。"],
+            crystal: ["水晶閃著稀有光芒。"],
+            trophy: ["這是你的努力證明。"]
+        };
+
         function getRequiredXp(level) {
             if (level === 1) return 20;
             if (level >= 2 && level < 5) return 40;
             if (level >= 5 && level < 15) return 60;
-            if (level >= 15 && level < 40) return 65 + Math.round((level - 15) * 2.3); 
+            if (level >= 15 && level < 40) return 65 + Math.round((level - 15) * 2.3);
             if (level >= 40 && level < 65) return 122 + Math.round((level - 40) * 2.4);
             if (level >= 65 && level < 80) return 185 + Math.round((level - 65) * 4.6);
             if (level >= 80 && level < 95) return 260 + (level - 80) * 10;
@@ -385,6 +456,10 @@
             return (day === 0 || day === 6) ? 1.5 : 1;
         }
 
+        function calculateGoldFromXp(finalXp) {
+            return Math.round(finalXp * 0.6);
+        }
+
         function showRewardToast(message) {
             const toast = document.createElement('div');
             toast.className = 'reward-toast';
@@ -393,57 +468,78 @@
             setTimeout(() => toast.remove(), 2000);
         }
 
-        function gainRewards(baseXp, baseGold, reason = '獲得獎勵') {
+        function gainRewards(baseXp, reason = '獲得獎勵') {
             const mult = getRewardMultiplier();
-            let finalXp = Math.round(baseXp * mult);
-            let finalGold = Math.round(baseGold * mult);
+            const finalXp = Math.round(baseXp * mult);
+            const finalGold = calculateGoldFromXp(finalXp);
 
             gameState.xp += finalXp;
             gameState.gold += finalGold;
+
             showRewardToast(`<strong>${reason}</strong><br>+${finalXp} XP +${finalGold} 🪙`);
 
             while (gameState.xp >= getRequiredXp(gameState.level) && gameState.level < 100) {
                 gameState.xp -= getRequiredXp(gameState.level);
                 gameState.level++;
-                const levelBonus = 50 + gameState.level * 3;
-                alert(`🎉 恭喜羽毛升級到 Lv.${gameState.level}！\n獲得獎勵 ${levelBonus} 金幣 🪙`);
-                gameState.gold += levelBonus;
+
+                const levelBonusXp = 30 + gameState.level * 2;
+                const levelBonusGold = calculateGoldFromXp(levelBonusXp);
+                gameState.gold += levelBonusGold;
+
+                alert(`🎉 恭喜羽毛升級到 Lv.${gameState.level}！\n升級金幣獎勵：${levelBonusGold} 🪙`);
             }
 
             saveAndRender();
         }
 
+        function toggleShop() {
+            const panel = document.getElementById('shop-panel');
+            const button = document.querySelector('.shop-toggle');
+            panel.classList.toggle('open');
+            button.innerText = panel.classList.contains('open') ? '🏪 收起像素雜貨店' : '🏪 打開像素雜貨店';
+        }
+
+        function renderShop() {
+            const grid = document.getElementById('shop-grid');
+            grid.innerHTML = shopItems.map(item => `
+                <button onclick="buyItem('${item.type}', ${item.cost})">
+                    ${item.emoji} ${item.name} (${item.cost})<br>
+                    <small>${item.note}</small>
+                </button>
+            `).join('');
+        }
+
         function addGoodDeed() {
             const input = document.getElementById('input-good');
             if (!input.value.trim()) return;
-            
+
             const ul = document.getElementById('list-goods');
             const li = document.createElement('li');
-            li.innerHTML = `<span>✨ ${input.value}</span>`;
-            ul.insertBefore(li, ul.firstChild); // 讓最新的顯示在最上面，手機比較好閱讀
-            
+            li.innerHTML = `<span>✨ ${input.value}</span><small class="reward-line">+${rewards.goodDeed} XP / 金幣為 XP 60%</small>`;
+            ul.insertBefore(li, ul.firstChild);
+
             input.value = '';
-            gainRewards(14, 10, '自我讚美完成');
+            gainRewards(rewards.goodDeed, '自我讚美完成');
         }
 
         function addTask() {
             const input = document.getElementById('input-task');
             if (!input.value.trim()) return;
 
-            const task = {
+            gameState.tasks.push({
                 id: Date.now(),
                 text: input.value,
-                createdTime: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                createdTime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 done: false
-            };
-            gameState.tasks.push(task);
+            });
+
             input.value = '';
-            gainRewards(8, 4, '任務已發布');
+            gainRewards(rewards.publishTask, '任務已發布');
         }
 
         function completeTask(id) {
             gameState.tasks = gameState.tasks.filter(t => t.id !== id);
-            gainRewards(35, 28, '任務回報完成');
+            gainRewards(rewards.completeTask, '任務回報完成');
         }
 
         function createBook() {
@@ -453,10 +549,11 @@
 
             gameState.books.push({
                 id: Date.now(),
-                name: name,
-                total: total,
+                name,
+                total,
                 current: 0
             });
+
             document.getElementById('book-name').value = '';
             document.getElementById('book-total').value = '';
             saveAndRender();
@@ -465,45 +562,36 @@
         function updateBookProgress(id, newPage) {
             const book = gameState.books.find(b => b.id === id);
             if (!book) return;
-            
+
             newPage = Math.min(book.total, Math.max(0, parseInt(newPage) || 0));
             const oldPercent = Math.floor((book.current / book.total) * 100);
             const newPercent = Math.floor((newPage / book.total) * 100);
 
+            book.current = newPage;
+
             if (newPercent > oldPercent) {
                 const percentDiff = newPercent - oldPercent;
-                gainRewards(percentDiff * 6, percentDiff * 3, '讀書進度提升');
-                
+                gainRewards(percentDiff * rewards.bookPercent, '讀書進度提升');
+
                 if (newPercent === 100) {
-                    alert(`📖 精通大成功！完讀《${book.name}》，\n額外大獎 160 XP / 120 金幣！`);
-                    gainRewards(160, 120, '完讀大獎');
+                    alert(`📖 精通大成功！完讀《${book.name}》！`);
+                    gainRewards(rewards.finishBook, '完讀大獎');
                 }
             }
-            
-            book.current = newPage;
-            if(book.current === book.total) {
+
+            if (book.current === book.total) {
                 gameState.books = gameState.books.filter(b => b.id !== id);
             }
+
             saveAndRender();
         }
 
-        const spriteMap = { dog: '🐕', cat: '🐈', tree: '🌳', radio: '📻', flower: '🌻', bench: '🪑', pond: '💧', chest: '🎁' };
-        const spriteQuotes = {
-            dog: ["羽毛今天超棒！", "主人，一起升級！", "汪！任務完成的味道！", "休息一下，摸摸我吧！"],
-            cat: ["喵~ 你很努力了。", "貓咪批准今天的進度。", "喵。這個角落歸我。"],
-            radio: ["🎵 正在播放：像素鄉村 Lo-Fi... 🎵", "專注時間，音量剛剛好。"],
-            tree: ["🍎 果樹正在茁壯成長！", "明天也會結出一點成果。"],
-            flower: ["向日葵把這裡照亮了。", "小小的美感也是獎勵。"],
-            bench: ["坐一下，恢復行動力。", "這裡很適合整理思緒。"],
-            pond: ["水面很安靜，腦袋也清爽了。", "池塘反射出今天的努力。"],
-            chest: ["寶箱收藏著你的戰利品。", "完成越多，基地越帥。"]
-        };
-        
         function buyItem(type, cost) {
             if (gameState.gold < cost) {
                 alert("🪙 金幣不足！快去解任務賺錢吧！");
                 return;
             }
+
             gameState.gold -= cost;
             const item = createInventoryItem(type);
             gameState.inventory.push(item);
@@ -517,14 +605,19 @@
             return {
                 id: Date.now() + Math.floor(Math.random() * 999),
                 type,
-                x: Math.max(10, Math.random() * (farm.clientWidth - 40)),
-                y: Math.max(40, Math.random() * (farm.clientHeight - 80))
+                x: Math.max(10, Math.random() * (farm.clientWidth - 44)),
+                y: Math.max(45, Math.random() * (farm.clientHeight - 90))
             };
         }
 
         function normalizeInventoryItem(item) {
             if (typeof item === 'string') return createInventoryItem(item);
             if (!item.id) item.id = Date.now() + Math.floor(Math.random() * 999);
+            if (typeof item.x !== 'number' || typeof item.y !== 'number') {
+                const fresh = createInventoryItem(item.type);
+                item.x = fresh.x;
+                item.y = fresh.y;
+            }
             return item;
         }
 
@@ -535,20 +628,22 @@
         function spawnSprite(item) {
             const farm = document.getElementById('farm');
             item = normalizeInventoryItem(item);
+
             const sprite = document.createElement('div');
             sprite.className = 'pixel-sprite';
             sprite.dataset.itemId = item.id;
             sprite.innerText = spriteMap[item.type] || '🎁';
-            
+
             sprite.style.left = clamp(item.x, 0, farm.clientWidth - 35) + 'px';
             sprite.style.top = clamp(item.y, 10, farm.clientHeight - 45) + 'px';
 
             let dragStart = null;
 
-            // 支援手機觸控的 Pointer Events
             sprite.addEventListener('pointerdown', (e) => {
+                e.preventDefault();
                 sprite.setPointerCapture(e.pointerId);
                 sprite.classList.add('dragging');
+
                 const rect = sprite.getBoundingClientRect();
                 dragStart = {
                     pointerId: e.pointerId,
@@ -560,9 +655,11 @@
 
             sprite.addEventListener('pointermove', (e) => {
                 if (!dragStart || dragStart.pointerId !== e.pointerId) return;
+
                 const farmRect = farm.getBoundingClientRect();
                 const x = clamp(e.clientX - farmRect.left - dragStart.offsetX, 0, farm.clientWidth - sprite.offsetWidth);
                 const y = clamp(e.clientY - farmRect.top - dragStart.offsetY, 10, farm.clientHeight - sprite.offsetHeight);
+
                 sprite.style.left = x + 'px';
                 sprite.style.top = y + 'px';
                 dragStart.moved = true;
@@ -570,13 +667,16 @@
 
             sprite.addEventListener('pointerup', (e) => {
                 if (!dragStart || dragStart.pointerId !== e.pointerId) return;
+
                 sprite.classList.remove('dragging');
+
                 const stored = gameState.inventory.find(i => i.id === item.id);
                 if (stored) {
                     stored.x = parseFloat(sprite.style.left);
                     stored.y = parseFloat(sprite.style.top);
                     localStorage.setItem('solo_leveling_farm', JSON.stringify(gameState));
                 }
+
                 if (!dragStart.moved) talkToSprite(item, sprite);
                 dragStart = null;
             });
@@ -585,40 +685,45 @@
         }
 
         function talkToSprite(item, sprite) {
+            const farm = document.getElementById('farm');
             const bubble = document.getElementById('bubble');
             const quotes = spriteQuotes[item.type] || ["這是你的戰利品。"];
-            bubble.style.left = clamp(parseFloat(sprite.style.left), 5, farm.clientWidth - 140) + 'px';
-            bubble.style.top = clamp(parseFloat(sprite.style.top) - 40, 5, 200) + 'px';
+
+            bubble.style.left = clamp(parseFloat(sprite.style.left), 5, farm.clientWidth - 145) + 'px';
+            bubble.style.top = clamp(parseFloat(sprite.style.top) - 40, 5, farm.clientHeight - 70) + 'px';
             bubble.style.display = 'block';
             bubble.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
             setTimeout(() => bubble.style.display = 'none', 2000);
         }
 
         function saveAndRender() {
             localStorage.setItem('solo_leveling_farm', JSON.stringify(gameState));
 
+            const nextXp = getRequiredXp(gameState.level);
+            const percent = Math.min(100, (gameState.xp / nextXp) * 100);
+
             document.getElementById('lbl-level').innerText = gameState.level;
             document.getElementById('lbl-xp').innerText = gameState.xp;
-            const nextXp = getRequiredXp(gameState.level);
             document.getElementById('lbl-next-xp').innerText = nextXp;
             document.getElementById('lbl-gold').innerText = gameState.gold;
-
-            const percent = (gameState.xp / nextXp) * 100;
             document.getElementById('xp-bar').style.width = `${percent}%`;
 
             const mult = getRewardMultiplier();
-            document.getElementById('weekend-alert').innerHTML = mult > 1 
-                ? `<div class="weekend-badge" style="margin-bottom:10px;">📅 週末 Buff 啟動：收益 1.5 倍！</div>` : '';
+            document.getElementById('weekend-alert').innerHTML = mult > 1
+                ? `<div class="weekend-badge">📅 週末 Buff 啟動：XP 1.5 倍，金幣為 XP 的 60%</div>`
+                : '';
 
             const taskList = document.getElementById('list-tasks');
             taskList.innerHTML = '';
+
             gameState.tasks.forEach(t => {
                 taskList.innerHTML += `
                     <li>
                         <div class="task-header">
                             <div>
                                 <strong>⚔️ ${t.text}</strong>
-                                <small class="reward-line">💰 +35 XP / +28 金幣</small>
+                                <small class="reward-line">💰 +${rewards.completeTask} XP / 金幣為 XP 60%</small>
                             </div>
                             <button onclick="completeTask(${t.id})" style="padding: 6px 10px; font-size:12px;">完成</button>
                         </div>
@@ -628,6 +733,7 @@
 
             const bookSection = document.getElementById('book-section');
             bookSection.innerHTML = '';
+
             gameState.books.forEach(b => {
                 const p = Math.floor((b.current / b.total) * 100);
                 bookSection.innerHTML += `
@@ -642,7 +748,7 @@
                         <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px;">
                             <span>目前讀到：</span>
                             <div>
-                                <input type="number" value="${b.current}" style="width:65px; padding:4px; text-align:center;" 
+                                <input type="number" value="${b.current}" style="width:65px; padding:4px; text-align:center;"
                                     onchange="updateBookProgress(${b.id}, this.value)"> / ${b.total} 頁
                             </div>
                         </div>
@@ -652,12 +758,17 @@
         }
 
         window.onload = function() {
+            renderShop();
+
             const saved = localStorage.getItem('solo_leveling_farm');
             if (saved) {
                 gameState = JSON.parse(saved);
                 gameState.inventory = (gameState.inventory || []).map(normalizeInventoryItem);
+                gameState.tasks = gameState.tasks || [];
+                gameState.books = gameState.books || [];
                 gameState.inventory.forEach(item => spawnSprite(item));
             }
+
             saveAndRender();
         };
     </script>
