@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-TW"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;我獨自升級：鄉村經營篇&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 像素與鄉村風配色風格 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--bg-color: #e8d8c8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--panel-color: #f7f1e3;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--border-color: #4a3728;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--primary-color: #70a1ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--xp-color: #2ed573;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--gold-color: #ffa502;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Courier New', Courier, monospace, "微軟正黑體";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--bg-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>h1, h2, h3 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 5px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-shadow: 1px 1px 0px #fff;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 遊戲主面板 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.game-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: 1fr 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 1000px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.game-container { grid-template-columns: 1fr; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 像素風區塊外框 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.pixel-box {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--panel-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 4px solid var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 4px 4px 0px var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>image-rendering: pixelated;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 狀態欄 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.status-bar {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-column: 1 / -1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #d1ccc0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bar-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 200px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>vertical-align: middle;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bar-fill {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 0%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: width 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 虛擬小屋畫布 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.farm-canvas {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 250px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #78e08f;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 4px dashed var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.pixel-sprite {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>user-select: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.5s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.speech-bubble {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 10;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 表單與列表 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>input, button, select {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: inherit;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 2px 2px 0px var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>outline: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button:active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0px 0px 0px var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(2px, 2px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #ffbe76;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>ul {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>list-style: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>li {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid var(--border-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.weekend-badge {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #ff4757;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 2px 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1 style="text-align: center;"&gt;🌾 我獨自升級：鄉村經營篇 🧑‍🌾&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="weekend-alert" style="margin-bottom:10px;"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="game-container"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pixel-box status-bar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;Lv. &lt;span id="lbl-level"&gt;1&lt;/span&gt;&lt;/strong&gt;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>(XP: &lt;span id="lbl-xp"&gt;0&lt;/span&gt;/&lt;span id="lbl-next-xp"&gt;20&lt;/span&gt;)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bar-container"&gt;&lt;div id="xp-bar" class="bar-fill" style="background: var(--xp-color);"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong style="color: var(--gold-color);"&gt;🪙 金幣: &lt;span id="lbl-gold"&gt;0&lt;/span&gt;&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pixel-box" style="display: flex; flex-direction: column;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;🏡 我的小農舍&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="farm-canvas" id="farm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="bubble" class="speech-bubble"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;🏪 像素雜貨店&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="buyItem('dog', 150)"&gt;🐕 買柴犬 (150金幣)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="buyItem('cat', 120)"&gt;🐈 買貓咪 (120金幣)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="buyItem('tree', 80)"&gt;🌳 買果樹 (80金幣)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="buyItem('radio', 100)"&gt;📻 像素收音機 (100金幣)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p style="font-size: 12px; color: #666; margin-top: 10px;"&gt;※ 提示：買完後可在農舍看見，點擊柴犬可以聊天，點擊收音機會播音樂（文字模擬）！&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pixel-box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;✨ 每日正向回饋 (自我讚美)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="display:flex; gap:5px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="input-good" placeholder="今天做得好的事..." style="flex:1;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="addGoodDeed()"&gt;記錄 (+10XP)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;ul id="list-goods"&gt;&lt;/ul&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;hr style="border: 1px dashed var(--border-color);"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;⚔️ 24小時執行任務清單&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="display:flex; gap:5px; margin-bottom:5px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="input-task" placeholder="準備執行的任務..." style="flex:1;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="addTask()"&gt;發布任務&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;ul id="list-tasks"&gt;&lt;/ul&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;hr style="border: 1px dashed var(--border-color);"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;📖 智力修煉：讀書進度&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:5px; margin-bottom:5px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="book-name" placeholder="書名"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="number" id="book-total" placeholder="總頁數"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="createBook()"&gt;開讀&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="book-section"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 遊戲核心數據資料 ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let gameState = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>level: 1,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>xp: 0,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gold: 0,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>inventory: [],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tasks: [],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>books: []</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 1-100級 階梯式經驗值引擎 ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getRequiredXp(level) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level === 1) return 20;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level &gt;= 2 &amp;&amp; level &lt; 5) return 40;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level &gt;= 5 &amp;&amp; level &lt; 15) return 60;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level &gt;= 15 &amp;&amp; level &lt; 40) return 65 + Math.round((level - 15) * 2.3);<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level &gt;= 40 &amp;&amp; level &lt; 65) return 122 + Math.round((level - 40) * 2.4);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level &gt;= 65 &amp;&amp; level &lt; 80) return 185 + Math.round((level - 65) * 4.6);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level &gt;= 80 &amp;&amp; level &lt; 95) return 260 + (level - 80) * 10;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level === 95) return 450;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level === 96) return 500;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level === 97) return 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level === 98) return 700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (level === 99) return 800;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return 999999; // 滿等</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 假日檢測 (週六日 1.5 倍加成) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getRewardMultiplier() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const day = new Date().getDay();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return (day === 0 || day === 6) ? 1.5 : 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 獲得獎勵機制 (核心邏輯) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function gainRewards(baseXp, baseGold) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const mult = getRewardMultiplier();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let finalXp = Math.round(baseXp * mult);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let finalGold = Math.round(baseGold * mult);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.xp += finalXp;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.gold += finalGold;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 檢查升級</p>
+<p class="p1"><span class="Apple-converted-space">            </span>while (gameState.xp &gt;= getRequiredXp(gameState.level) &amp;&amp; gameState.level &lt; 100) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.xp -= getRequiredXp(gameState.level);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.level++;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert(`🎉 恭喜羽毛升級到 Lv.${gameState.level}！額外獲得滿血金幣獎勵 50 🪙`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.gold += 50;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveAndRender();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 每日正向回饋 ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function addGoodDeed() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const input = document.getElementById('input-good');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!input.value.trim()) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const ul = document.getElementById('list-goods');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const li = document.createElement('li');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>li.innerHTML = `&lt;span&gt;✨ ${input.value}&lt;/span&gt; &lt;span style="color:green;"&gt;+10 XP&lt;/span&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>ul.appendChild(li);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>input.value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gainRewards(10, 5);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 24小時任務管理 ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function addTask() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const input = document.getElementById('input-task');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!input.value.trim()) return;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const task = {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>id: Date.now(),</p>
+<p class="p1"><span class="Apple-converted-space">                </span>text: input.value,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>createdTime: new Date().toLocaleString(),</p>
+<p class="p1"><span class="Apple-converted-space">                </span>done: false</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.tasks.push(task);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>input.value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveAndRender();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function completeTask(id) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.tasks = gameState.tasks.filter(t =&gt; t.id !== id);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 24小時內完成，給予優渥獎勵</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gainRewards(20, 15);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 讀書進度管理 ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function createBook() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const name = document.getElementById('book-name').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const total = parseInt(document.getElementById('book-total').value);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!name || !total) return;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.books.push({</p>
+<p class="p1"><span class="Apple-converted-space">                </span>id: Date.now(),</p>
+<p class="p1"><span class="Apple-converted-space">                </span>name: name,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>total: total,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>current: 0</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('book-name').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('book-total').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveAndRender();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateBookProgress(id, newPage) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const book = gameState.books.find(b =&gt; b.id === id);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!book) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>newPage = Math.min(book.total, Math.max(0, parseInt(newPage) || 0));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const oldPercent = Math.floor((book.current / book.total) * 100);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const newPercent = Math.floor((newPage / book.total) * 100);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (newPercent &gt; oldPercent) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 每提升 1% 給 5 XP / 2 金幣</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const percentDiff = newPercent - oldPercent;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gainRewards(percentDiff * 5, percentDiff * 2);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (newPercent === 100) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>alert(`📖 精通大成功！完讀《${book.name}》，額外大獎 100 XP / 50 金幣！`);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>gainRewards(100, 50);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>book.current = newPage;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(book.current === book.total) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.books = gameState.books.filter(b =&gt; b.id !== id); // 讀完移出</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveAndRender();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 商店與裝潢功能 ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const spriteMap = { dog: '🐕', cat: '🐈', tree: '🌳', radio: '📻' };</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function buyItem(type, cost) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (gameState.gold &lt; cost) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert("🪙 金幣不足！快去解任務賺錢吧！");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.gold -= cost;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.inventory.push(type);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>spawnSprite(type);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveAndRender();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function spawnSprite(type) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const farm = document.getElementById('farm');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const sprite = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sprite.className = 'pixel-sprite';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sprite.innerText = spriteMap[type];</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 隨機擺放位置</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sprite.style.left = Math.random() * (farm.clientWidth - 40) + 'px';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sprite.style.top = Math.random() * (farm.clientHeight - 60) + 40 + 'px';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 點擊互動機制</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sprite.onclick = (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>e.stopPropagation();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const bubble = document.getElementById('bubble');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>bubble.style.left = sprite.style.left;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>bubble.style.top = (parseFloat(sprite.style.top) - 30) + 'px';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>bubble.style.display = 'block';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (type === 'dog') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const quotes = ["羽毛今天超棒！", "主人，今天也要一起升級！", "汪！(對你搖尾巴)", "休息一下，摸摸我吧！"];</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>bubble.innerText = quotes[Math.floor(Math.random() * quotes.length)];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (type === 'cat') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>bubble.innerText = "喵~ (在曬太陽不理你)";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (type === 'radio') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>bubble.innerText = "🎵 正在播放：像素鄉村 Lo-Fi 輕音樂... 🎵";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>bubble.innerText = "🍎 果樹正在茁壯成長！";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; bubble.style.display = 'none', 2500);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>farm.appendChild(sprite);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 畫面渲染與資料儲存 ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function saveAndRender() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>localStorage.setItem('solo_leveling_farm', JSON.stringify(gameState));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 更新狀態</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('lbl-level').innerText = gameState.level;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('lbl-xp').innerText = gameState.xp;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const nextXp = getRequiredXp(gameState.level);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('lbl-next-xp').innerText = nextXp;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('lbl-gold').innerText = gameState.gold;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const percent = (gameState.xp / nextXp) * 100;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('xp-bar').style.width = `${percent}%`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 渲染假日標籤</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const mult = getRewardMultiplier();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('weekend-alert').innerHTML = mult &gt; 1<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>? `&lt;span class="weekend-badge"&gt;📅 週末狂歡 Buff 啟動中：所有收益 1.5 倍！&lt;/span&gt;` : '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 渲染 24H 任務</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const taskList = document.getElementById('list-tasks');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>taskList.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.tasks.forEach(t =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>taskList.innerHTML += `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;strong&gt;⚔️ ${t.text}&lt;/strong&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;small style="color:#777;"&gt;發布時間: ${t.createdTime}&lt;/small&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="completeTask(${t.id})"&gt;回報完成&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 渲染書籍</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const bookSection = document.getElementById('book-section');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>bookSection.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.books.forEach(b =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const p = Math.floor((b.current / b.total) * 100);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>bookSection.innerHTML += `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="background:#fff; border:2px solid var(--border-color); padding:10px; margin-top:5px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;strong&gt;📖 ${b.name}&lt;/strong&gt; (${p}%)</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="bar-container" style="width:100%; height:10px; margin:5px 0;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="bar-fill" style="width:${p}%; background:var(--primary-color);"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div style="display:flex; justify-content:space-between; align-items:center;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;進度：&lt;input type="number" value="${b.current}" style="width:60px; padding:2px;"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>onchange="updateBookProgress(${b.id}, this.value)"&gt; / ${b.total} 頁&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 初始化讀取 ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.onload = function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const saved = localStorage.getItem('solo_leveling_farm');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (saved) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState = JSON.parse(saved);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 重新生成農舍裡原本就有的物件</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.inventory.forEach(type =&gt; spawnSprite(type));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveAndRender();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
